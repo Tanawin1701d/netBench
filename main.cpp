@@ -17,7 +17,7 @@ int main() {
           wk2->initApp(app::res::FULLHD, 2, 1, 1);
     /// set up sim manager
     mySim.addApp(wk);
-    //mySim.addApp(wk2);
+    mySim.addApp(wk2);
 
     // start simulation
     mySim.simulate();

@@ -32,6 +32,8 @@ namespace netBench{
                 benchStartVar meta = *((benchStartVar*)owner);
                 return meta.cls->bench(meta.benchArgs);
             }
+            APPID getAppId() const;
+
         };
 
         ////////////////////////////////

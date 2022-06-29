@@ -26,6 +26,12 @@ namespace app
             default          : { pixelPerFrame = 1      ; break;}
         }
         memBuffer = new netBuf::mBuf<rgb>(pixelPerFrame*buffFrame);
+        cout << "benchSet : initialize --->streamVDO @appId " << appId     << "\n"
+                "setting buffFrame : "          << buffFrame << "\n"
+                "setting buffSec   : "          << bs        << "\n"
+                "setting fps       : "          << fps       << "\n"
+                "setting simSec    : "          << sec       << "\n";
+
 
     }
 
@@ -33,10 +39,10 @@ namespace app
     streamVDO::bench(void*){
 
         int simulatedSec = 0;
+        cout << "benchSet : start simulation --->streamVDO @appId " << appId     << "\n";
         auto start = std::chrono::high_resolution_clock::now();
 
         while (simulatedSec < simSec){
-            cout << "threadId : " << std::this_thread::get_id() << endl;
             int writePix = 0;
             int totalBuffPix = buffFrame * pixelPerFrame;
             ///////////////////////////////////////////////////////////
@@ -60,7 +66,7 @@ namespace app
 
         auto stop = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
-        cout << duration.count() << endl;
+        cout << "benchSet : finished simulation --->streamVDO @appId "<< appId << " by using ===" << duration.count() << " sec\n";
     }
 }
 }

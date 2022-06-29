@@ -21,14 +21,16 @@ namespace netBench {
 
             for(int appId = 0; appId < workload.size(); appId++){
                 auto* wk = workload[appId];
+                cout << wk->getAppId() << endl;
                 // todo we may give an input to the thread starting bech function
-                benchStartVar thdStartVar = {wk, nullptr}; /// <<-----
+                benchStartVar* thdStartVar = new benchStartVar{wk, nullptr}; /// <<-----
                 pthread_create(&workloadId[appId]
                                , nullptr
                                , app::APP::benchStart
-                               , (void*) (&thdStartVar)
+                               , (void*) (thdStartVar)
                                );
             }
+
             for (int appId = 0; appId < workload.size(); appId++) {
                 pthread_join(workloadId[appId], nullptr);
             }
