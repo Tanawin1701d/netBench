@@ -41,6 +41,9 @@ namespace app
         int simulatedSec = 0;
         cout << "benchSet : start simulation --->streamVDO @appId " << appId     << "\n";
         auto start = std::chrono::high_resolution_clock::now();
+        cout << "appId: " << appId << " [ROI: start]" << endl;
+
+        BENCH_ENTER_ROI
 
         while (simulatedSec < simSec){
             int writePix = 0;
@@ -62,6 +65,10 @@ namespace app
             ///////////////////////////////////////////////////////////
             simulatedSec += buffSec;
         }
+
+        BENCH_EXIT_ROI
+
+        cout << "appId: " << appId << " [ROI: stop]" << endl;
 
 
         auto stop = std::chrono::high_resolution_clock::now();

@@ -21,9 +21,9 @@ namespace netBench {
 
             for(int appId = 0; appId < workload.size(); appId++){
                 auto* wk = workload[appId];
-                cout << wk->getAppId() << endl;
+                //cout << wk->getAppId() << endl;
                 // todo we may give an input to the thread starting bech function
-                benchStartVar* thdStartVar = new benchStartVar{wk, nullptr}; /// <<-----
+                auto* thdStartVar = new benchStartVar{wk, nullptr}; /// <<-----
                 pthread_create(&workloadId[appId]
                                , nullptr
                                , app::APP::benchStart
