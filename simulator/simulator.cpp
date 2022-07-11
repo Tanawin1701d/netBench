@@ -19,20 +19,37 @@ namespace netBench {
 
         void simManager::simulate() {
 
+//            struct timespec start, stop;
+//            clock_gettime(CLOCK_REALTIME, &start);
+//            while (true){
+//                clock_gettime(CLOCK_REALTIME, & stop);
+//                if (((stop.tv_nsec - start.tv_nsec) > ((uint32_t)5e6)) || (stop.tv_nsec < start.tv_nsec) ){
+//                    break;
+//                }
+//            }
+
+            BENCH_ENTER_ROI
+
             for(int appId = 0; appId < workload.size(); appId++){
                 auto* wk = workload[appId];
-                //cout << wk->getAppId() << endl;
-                // todo we may give an input to the thread starting bech function
-                auto* thdStartVar = new benchStartVar{wk, nullptr}; /// <<-----
-                pthread_create(&workloadId[appId]
-                               , nullptr
-                               , app::APP::benchStart
-                               , (void*) (thdStartVar)
-                               );
-            }
+                cout << "appId" <<wk->getAppId() << "has been invoked" << endl;
+                #ifndef GEM_5
+                    // todo we may give an input to the thread starting bech function
+                    auto* thdStartVar = new benchStartVar{wk, nullptr}; /// <<-----
+                    pthread_create(&workloadId[appId]
+                                   , nullptr
+                                   , app::APP::benchStart
+                                   , (void*) (thdStartVar)
+                                   );
 
-            for (int appId = 0; appId < workload.size(); appId++) {
-                pthread_join(workloadId[appId], nullptr);
+
+                for (int appId = 0; appId < workload.size(); appId++) {
+                    pthread_join(workloadId[appId], nullptr);
+                }
+                #else
+                    wk->bench(nullptr);
+                #endif
+
             }
 
         }

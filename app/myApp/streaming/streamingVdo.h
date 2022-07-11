@@ -6,10 +6,9 @@
 #define NETBENCH_STREAMINGVDO_H
 
 #include <cstdint>
-#include <chrono>
-#include <thread>
-#include "../app.h"
-#include "../../netBuffer/mBuf.h"
+
+#include "../../app.h"
+#include "../../../netBuffer/mBuf.h"
 namespace netBench{
 namespace app{
 
@@ -22,7 +21,8 @@ namespace app{
         enum res {
             FULLHD,
             TWOK,
-            FOURK
+            FOURK,
+            DD
         };
 
         class streamVDO: public APP{

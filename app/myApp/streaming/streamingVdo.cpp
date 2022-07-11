@@ -2,6 +2,7 @@
 // Created by tanawin on 28/6/65.
 //
 
+#include <unistd.h>
 #include "streamingVdo.h"
 
 
@@ -40,10 +41,10 @@ namespace app
 
         int simulatedSec = 0;
         cout << "benchSet : start simulation --->streamVDO @appId " << appId     << "\n";
-        auto start = std::chrono::high_resolution_clock::now();
+        //auto start = std::chrono::high_resolution_clock::now();
         cout << "appId: " << appId << " [ROI: start]" << endl;
 
-        BENCH_ENTER_ROI
+
 
         while (simulatedSec < simSec){
             int writePix = 0;
@@ -57,7 +58,16 @@ namespace app
                 memBuffer->writeDayta((size_t)writePix, (size_t)1, rd);
                 delete rd;
             }
-            ///////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////
+            struct timespec start, stop;
+            clock_gettime(CLOCK_REALTIME, &start);
+            while (true){
+                clock_gettime(CLOCK_REALTIME, & stop);
+                if (((stop.tv_nsec - start.tv_nsec) > 10) || (stop.tv_nsec < start.tv_nsec) ){
+                    break;
+                }
+            }
+            /////////////////////////////////////////////////////////////
             int readPix = 0;
             for (;readPix < totalBuffPix; readPix++){
                 memBuffer->readDayta((size_t)readPix);
@@ -66,14 +76,15 @@ namespace app
             simulatedSec += buffSec;
         }
 
-        BENCH_EXIT_ROI
+        //BENCH_EXIT_ROI
 
         cout << "appId: " << appId << " [ROI: stop]" << endl;
 
 
-        auto stop = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
-        cout << "benchSet : finished simulation --->streamVDO @appId "<< appId << " by using ===" << duration.count() << " sec\n";
+        //auto stop = std::chrono::high_resolution_clock::now();
+        //auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
+        //cout << "benchSet : finished simulation --->streamVDO @appId "<< appId << " by using ===" << duration.count() << " sec\n";
+        return nullptr;
     }
 }
 }

@@ -11,6 +11,10 @@
 #include "simApi/pin/sim_api.h"
 #include "simApi/gem5/m5ops.h"
 #include "simApi/api.h"
+#include <time.h>
+
+#include <chrono>
+#include <thread>
 
 namespace netBench{
     namespace app{
