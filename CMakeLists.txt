@@ -41,7 +41,7 @@ add_executable(netBench1
         #app/simApi/gem5/m5thread/m5thread.cpp
         #app/simApi/gem5/m5thread/m5thread.h
         #lib/m5threads/pthread.c
-        )
+        app/myApp/customSyscall/systester.cpp app/myApp/customSyscall/systester.h)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)

@@ -19,16 +19,7 @@ namespace netBench {
 
         void simManager::simulate() {
 
-//            struct timespec start, stop;
-//            clock_gettime(CLOCK_REALTIME, &start);
-//            while (true){
-//                clock_gettime(CLOCK_REALTIME, & stop);
-//                if (((stop.tv_nsec - start.tv_nsec) > ((uint32_t)5e6)) || (stop.tv_nsec < start.tv_nsec) ){
-//                    break;
-//                }
-//            }
 
-            BENCH_ENTER_ROI
 
             for(int appId = 0; appId < workload.size(); appId++){
                 auto* wk = workload[appId];

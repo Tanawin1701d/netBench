@@ -13,20 +13,23 @@ namespace netBench{
 
         void WAITER::initApp() {}
 
+        void WAITER::initApp(long delay) {
+            this->delay = delay;
+        }
+
         void *WAITER::bench(void *arg) {
 
-            BENCH_ENTER_ROI
-            for (int i = 0; i <= 1; i++) {
-                struct timespec start, stop;
-                clock_gettime(CLOCK_REALTIME, &start);
-                while (true) {
-                    clock_gettime(CLOCK_REALTIME, &stop);
-                    if (((stop.tv_nsec - start.tv_nsec) > 5) || (stop.tv_nsec < start.tv_nsec)) {
-                        break;
-                    }
-                }
-            }
-            BENCH_EXIT_ROI
+            uint64_t startSpec = getTime();
+
+
+            timespec ww;
+            ww.tv_nsec = 25;
+            clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &ww, NULL);
+            uint64_t stopSpec = getTime();
+            cout << "start nanosec that use with in delay :" << startSpec << '\n';
+            cout << "stop  nanosec that use with in delay :" << stopSpec << '\n';
+            cout << "amount tick that use with in delay :"   << stopSpec - startSpec << '\n';
+
 
 
 

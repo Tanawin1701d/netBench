@@ -24,7 +24,7 @@ namespace app
             case res::FULLHD : { pixelPerFrame = 2073600; break;}
             case res::TWOK   : { pixelPerFrame = 3686400; break;}
             case res::FOURK  : { pixelPerFrame = 8294400; break;}
-            default          : { pixelPerFrame = 1      ; break;}
+            default          : { pixelPerFrame = 1  ; break;}
         }
         memBuffer = new netBuf::mBuf<rgb>(pixelPerFrame*buffFrame);
         cout << "benchSet : initialize --->streamVDO @appId " << appId     << "\n"
@@ -41,9 +41,9 @@ namespace app
 
         int simulatedSec = 0;
         cout << "benchSet : start simulation --->streamVDO @appId " << appId     << "\n";
-        //auto start = std::chrono::high_resolution_clock::now();
-        cout << "appId: " << appId << " [ROI: start]" << endl;
 
+        cout << "appId: " << appId << " [ROI: start]" << endl;
+        BENCH_ENTER_ROI
 
 
         while (simulatedSec < simSec){
@@ -57,15 +57,6 @@ namespace app
                                   });
                 memBuffer->writeDayta((size_t)writePix, (size_t)1, rd);
                 delete rd;
-            }
-            ////////////////////////////////////////////////////////////
-            struct timespec start, stop;
-            clock_gettime(CLOCK_REALTIME, &start);
-            while (true){
-                clock_gettime(CLOCK_REALTIME, & stop);
-                if (((stop.tv_nsec - start.tv_nsec) > 10) || (stop.tv_nsec < start.tv_nsec) ){
-                    break;
-                }
             }
             /////////////////////////////////////////////////////////////
             int readPix = 0;
